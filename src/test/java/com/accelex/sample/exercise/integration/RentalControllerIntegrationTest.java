@@ -2,7 +2,6 @@ package com.accelex.sample.exercise.integration;
 
 import com.accelex.sample.exercise.commands.RentalCommand;
 import com.accelex.sample.exercise.commands.ReturnVehicleCommand;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -51,8 +50,8 @@ public class RentalControllerIntegrationTest extends BaseIntegrationTest {
         HttpEntity<String> request = createRequestFrom(returnVehicleCommand);
 
         Throwable exception = assertThrows(HttpClientErrorException.class, () -> {
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                createURLWithPort("/api/rentals/return-vehicle"), request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(
+                    createURLWithPort("/api/rentals/return-vehicle"), request, String.class);
         });
 
         assertEquals(HttpStatus.BAD_REQUEST, ((HttpClientErrorException) exception).getStatusCode());

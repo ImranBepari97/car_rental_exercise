@@ -60,7 +60,7 @@ public class RentalCommandHandler {
         ).orElseThrow(() -> new RentalException(CUSTOMER_NOT_RENTING_VEHICLE_ERROR));
 
 
-        if(returnVehicleCommand.isVehicleDamaged()) {
+        if (returnVehicleCommand.isVehicleDamaged()) {
             rental.setStatus(RentalStatus.RETURNED_DAMAGED);
         } else {
             rental.setStatus(RentalStatus.RETURNED_OK);

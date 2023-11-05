@@ -4,7 +4,6 @@ import com.accelex.sample.exercise.commands.CustomerCommand;
 import com.accelex.sample.exercise.model.Customer;
 import com.accelex.sample.exercise.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
