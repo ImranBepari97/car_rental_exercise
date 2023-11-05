@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.VEHICLE_ALREADY_EXISTS_ERROR;
+
 @Service
 @AllArgsConstructor
 public class VehicleCommandHandler {
@@ -29,7 +31,7 @@ public class VehicleCommandHandler {
     public void create(VehicleCommand vehicleCommand) {
 
         if (vehicleRepository.existsByRegistration(vehicleCommand.getRegistration()))
-            throw new IllegalArgumentException("Vehicle with entered registration already exists!");
+            throw new IllegalArgumentException(VEHICLE_ALREADY_EXISTS_ERROR);
 
         Vehicle vehicle = createVehicleFrom(vehicleCommand);
 

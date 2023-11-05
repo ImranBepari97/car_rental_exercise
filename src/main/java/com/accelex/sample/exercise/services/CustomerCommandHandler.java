@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.CUSTOMER_ALREADY_EXISTS_ERROR;
+
 @Service
 @AllArgsConstructor
 public class CustomerCommandHandler {
@@ -28,7 +30,7 @@ public class CustomerCommandHandler {
 
     public void create(CustomerCommand customerCommand) {
         if (customerRepository.existsByDriverLicenseNumber(customerCommand.getDriverLicenseNumber()))
-            throw new IllegalArgumentException("Customer with entered license already exists!");
+            throw new IllegalArgumentException(CUSTOMER_ALREADY_EXISTS_ERROR);
 
         Customer customer = createCustomerFrom(customerCommand);
 

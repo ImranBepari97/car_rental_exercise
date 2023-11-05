@@ -18,7 +18,7 @@ public class VehicleController {
 
     private final VehicleCommandHandler vehicleCommandHandler;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Vehicle> create(@RequestBody VehicleCommand request) {
         vehicleCommandHandler.create(request);
         return new ResponseEntity<>(HttpStatus.CREATED);

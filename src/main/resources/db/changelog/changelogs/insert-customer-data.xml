@@ -8,21 +8,18 @@
 
     <changeSet id="2" author="imranbepari">
         <insert tableName="customers">
-            <column name="id" value="1"/>
             <column name="first_name" value="Bill"/>
             <column name="last_name" value="Gates"/>
             <column name="birth_date" valueDate="1955-10-28"/>
             <column name="driver_license_number" value="ASDA1123"/>
         </insert>
         <insert tableName="customers">
-            <column name="id" value="2"/>
             <column name="first_name" value="Tatsuya"/>
             <column name="last_name" value="Kitani"/>
             <column name="birth_date" valueDate="1996-02-28"/>
             <column name="driver_license_number" value="ZZZZ4564"/>
         </insert>
         <insert tableName="customers">
-            <column name="id" value="3"/>
             <column name="first_name" value="Shigeo"/>
             <column name="last_name" value="Kageyama"/>
             <column name="birth_date" valueDate="2003-05-12"/>
@@ -30,7 +27,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="4"/>
             <column name="first_name" value="Sakura"/>
             <column name="last_name" value="Haruno"/>
             <column name="birth_date" valueDate="1999-03-28"/>
@@ -38,7 +34,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="5"/>
             <column name="first_name" value="Naruto"/>
             <column name="last_name" value="Uzumaki"/>
             <column name="birth_date" valueDate="2002-10-10"/>
@@ -46,7 +41,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="6"/>
             <column name="first_name" value="Asuna"/>
             <column name="last_name" value="Yuuki"/>
             <column name="birth_date" valueDate="2001-09-30"/>
@@ -54,7 +48,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="7"/>
             <column name="first_name" value="Ichigo"/>
             <column name="last_name" value="Kurosaki"/>
             <column name="birth_date" valueDate="1995-07-15"/>
@@ -62,7 +55,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="8"/>
             <column name="first_name" value="Mikasa"/>
             <column name="last_name" value="Ackerman"/>
             <column name="birth_date" valueDate="1994-02-10"/>
@@ -70,7 +62,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="9"/>
             <column name="first_name" value="Eren"/>
             <column name="last_name" value="Yeager"/>
             <column name="birth_date" valueDate="1995-03-30"/>
@@ -78,7 +69,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="10"/>
             <column name="first_name" value="Erza"/>
             <column name="last_name" value="Scarlet"/>
             <column name="birth_date" valueDate="1990-07-11"/>
@@ -86,7 +76,6 @@
         </insert>
 
         <insert tableName="customers">
-            <column name="id" value="11"/>
             <column name="first_name" value="Kisuke"/>
             <column name="last_name" value="Urahara"/>
             <column name="birth_date" valueDate="1991-07-11"/>

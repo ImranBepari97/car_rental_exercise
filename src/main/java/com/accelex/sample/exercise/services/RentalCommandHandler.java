@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.*;
+
 @Service
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -33,13 +35,13 @@ public class RentalCommandHandler {
     public void rentVehicle(RentalCommand rentalCommand) {
 
         if (!vehicleRepository.existsByRegistration(rentalCommand.getVehicleRegistration()))
-            throw new IllegalArgumentException("Vehicle does not exist!");
+            throw new IllegalArgumentException(VEHICLE_NOT_EXIST_ERROR);
 
         RentalStatus status = getCurrentRentalStatus(rentalCommand.getVehicleRegistration());
 
         switch (status) {
-            case OUT, PENDING -> throw new RentalException("Vehicle is already booked!");
-            case RETURNED_DAMAGED -> throw new RentalException("Vehicle is damaged, and cannot be rented!");
+            case OUT, PENDING -> throw new RentalException(VEHICLE_ALREADY_BOOKED_ERROR);
+            case RETURNED_DAMAGED -> throw new RentalException(VEHICLE_DAMAGED_ERROR);
         }
 
         Rental rental = createRentalFrom(rentalCommand);
@@ -49,13 +51,13 @@ public class RentalCommandHandler {
 
     public void returnVehicle(ReturnVehicleCommand returnVehicleCommand) {
         if (!vehicleRepository.existsByRegistration(returnVehicleCommand.getVehicleRegistration()))
-            throw new IllegalArgumentException("Vehicle does not exist!");
+            throw new IllegalArgumentException(VEHICLE_NOT_EXIST_ERROR);
 
         Rental rental = rentalRepository.findRentedVehicleForCustomer(
                 returnVehicleCommand.getCustomerId(),
                 returnVehicleCommand.getVehicleRegistration(),
                 RentalStatus.OUT
-        ).orElseThrow(() -> new RentalException("That customer is not currently renting that vehicle!"));
+        ).orElseThrow(() -> new RentalException(CUSTOMER_NOT_RENTING_VEHICLE_ERROR));
 
 
         if(returnVehicleCommand.isVehicleDamaged()) {

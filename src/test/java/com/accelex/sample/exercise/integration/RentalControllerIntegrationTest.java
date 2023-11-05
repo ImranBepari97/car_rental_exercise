@@ -1,27 +1,22 @@
 package com.accelex.sample.exercise.integration;
 
-import com.accelex.sample.exercise.ExerciseApplication;
 import com.accelex.sample.exercise.commands.RentalCommand;
 import com.accelex.sample.exercise.commands.ReturnVehicleCommand;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.CUSTOMER_NOT_RENTING_VEHICLE_ERROR;
+import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.VEHICLE_ALREADY_BOOKED_ERROR;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ExerciseApplication.class)
-public class RentalControllerIntegrationTest {
-
-    @LocalServerPort
-    private int port;
-
-    private final RestTemplate restTemplate = new RestTemplate();
+public class RentalControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void testRentVehicle() {
@@ -29,8 +24,10 @@ public class RentalControllerIntegrationTest {
                 3L, "MNO303", LocalDateTime.now()
         );
 
+        HttpEntity<String> request = createRequestFrom(rentalCommand);
+
         ResponseEntity<String> response = restTemplate.postForEntity(
-                createURLWithPort("/api/rentals/rent-vehicle"), rentalCommand, String.class);
+                createURLWithPort("/api/rentals/rent-vehicle"), request, String.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
@@ -39,10 +36,43 @@ public class RentalControllerIntegrationTest {
     public void testReturnVehicle() {
         ReturnVehicleCommand returnVehicleCommand = new ReturnVehicleCommand(1L, "ABC123", false);
 
+        HttpEntity<String> request = createRequestFrom(returnVehicleCommand);
+
         ResponseEntity<String> response = restTemplate.postForEntity(
-                createURLWithPort("/api/rentals/return-vehicle"), returnVehicleCommand, String.class);
+                createURLWithPort("/api/rentals/return-vehicle"), request, String.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testReturnVehicleNotRented() {
+        ReturnVehicleCommand returnVehicleCommand = new ReturnVehicleCommand(4L, "GHI101", false);
+
+        HttpEntity<String> request = createRequestFrom(returnVehicleCommand);
+
+        Throwable exception = assertThrows(HttpClientErrorException.class, () -> {
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                createURLWithPort("/api/rentals/return-vehicle"), request, String.class);
+        });
+
+        assertEquals(HttpStatus.BAD_REQUEST, ((HttpClientErrorException) exception).getStatusCode());
+        assertTrue(exception.getMessage().contains(CUSTOMER_NOT_RENTING_VEHICLE_ERROR));
+    }
+
+    @Test
+    public void testRentVehicleAlreadyRented() {
+        RentalCommand rentalCommand = new RentalCommand(
+                3L, "DEF789", LocalDateTime.now()
+        );
+
+        HttpEntity<String> request = createRequestFrom(rentalCommand);
+        Throwable exception = assertThrows(HttpClientErrorException.class, () -> {
+            ResponseEntity<String> response = restTemplate.postForEntity(
+                    createURLWithPort("/api/rentals/rent-vehicle"), request, String.class);
+        });
+
+        assertEquals(HttpStatus.BAD_REQUEST, ((HttpClientErrorException) exception).getStatusCode());
+        assertTrue(exception.getMessage().contains(VEHICLE_ALREADY_BOOKED_ERROR));
     }
 
     @Test
@@ -53,7 +83,5 @@ public class RentalControllerIntegrationTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
-    private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + uri;
-    }
+
 }

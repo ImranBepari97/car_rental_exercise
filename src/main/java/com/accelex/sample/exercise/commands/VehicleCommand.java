@@ -2,9 +2,11 @@ package com.accelex.sample.exercise.commands;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class VehicleCommand {
     @NotNull
     @NotEmpty
