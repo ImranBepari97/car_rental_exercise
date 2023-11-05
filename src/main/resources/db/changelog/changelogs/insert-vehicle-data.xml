@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="3" author="imranbepari">
+        <insert tableName="vehicles">
+            <column name="id" value="1"/>
+            <column name="brand" value="Vehicle1Brand"/>
+            <column name="model" value="Vehicle1Model"/>
+            <column name="manufacture_year" value="2023"/>
+            <column name="colour" value="Color1"/>
+            <column name="registration" value="ABC123"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="2"/>
+            <column name="brand" value="Vehicle2Brand"/>
+            <column name="model" value="Vehicle2Model"/>
+            <column name="manufacture_year" value="2020"/>
+            <column name="colour" value="Color2"/>
+            <column name="registration" value="XYZ456"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="3"/>
+            <column name="brand" value="Vehicle3Brand"/>
+            <column name="model" value="Vehicle3Model"/>
+            <column name="manufacture_year" value="2019"/>
+            <column name="colour" value="Color3"/>
+            <column name="registration" value="DEF789"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="4"/>
+            <column name="brand" value="Vehicle4Brand"/>
+            <column name="model" value="Vehicle4Model"/>
+            <column name="manufacture_year" value="2021"/>
+            <column name="colour" value="Color4"/>
+            <column name="registration" value="GHI101"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="5"/>
+            <column name="brand" value="Vehicle5Brand"/>
+            <column name="model" value="Vehicle5Model"/>
+            <column name="manufacture_year" value="2022"/>
+            <column name="colour" value="Color5"/>
+            <column name="registration" value="JKL202"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="6"/>
+            <column name="brand" value="Vehicle6Brand"/>
+            <column name="model" value="Vehicle6Model"/>
+            <column name="manufacture_year" value="2020"/>
+            <column name="colour" value="Color6"/>
+            <column name="registration" value="MNO303"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="7"/>
+            <column name="brand" value="Vehicle7Brand"/>
+            <column name="model" value="Vehicle7Model"/>
+            <column name="manufacture_year" value="2023"/>
+            <column name="colour" value="Color7"/>
+            <column name="registration" value="PQR404"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="8"/>
+            <column name="brand" value="Vehicle8Brand"/>
+            <column name="model" value="Vehicle8Model"/>
+            <column name="manufacture_year" value="2021"/>
+            <column name="colour" value="Color8"/>
+            <column name="registration" value="STU505"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="9"/>
+            <column name="brand" value="Vehicle9Brand"/>
+            <column name="model" value="Vehicle9Model"/>
+            <column name="manufacture_year" value="2022"/>
+            <column name="colour" value="Color9"/>
+            <column name="registration" value="VWX606"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="10"/>
+            <column name="brand" value="Vehicle10Brand"/>
+            <column name="model" value="Vehicle10Model"/>
+            <column name="manufacture_year" value="2021"/>
+            <column name="colour" value="Color10"/>
+            <column name="registration" value="YZA707"/>
+        </insert>
+        <insert tableName="vehicles">
+            <column name="id" value="11"/>
+            <column name="brand" value="Vehicle11Brand"/>
+            <column name="model" value="Vehicle11Model"/>
+            <column name="manufacture_year" value="2019"/>
+            <column name="colour" value="Color11"/>
+            <column name="registration" value="YZA708"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

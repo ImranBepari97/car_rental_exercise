@@ -1,0 +1,105 @@
+package com.accelex.sample.exercise.services;
+
+import com.accelex.sample.exercise.commands.RentalCommand;
+import com.accelex.sample.exercise.commands.ReturnVehicleCommand;
+import com.accelex.sample.exercise.exceptions.RentalException;
+import com.accelex.sample.exercise.model.Customer;
+import com.accelex.sample.exercise.model.Rental;
+import com.accelex.sample.exercise.model.RentalStatus;
+import com.accelex.sample.exercise.model.Vehicle;
+import com.accelex.sample.exercise.repositories.CustomerRepository;
+import com.accelex.sample.exercise.repositories.RentalRepository;
+import com.accelex.sample.exercise.repositories.VehicleRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class RentalCommandHandler {
+
+    @Autowired
+    private RentalRepository rentalRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
+    public void rentVehicle(RentalCommand rentalCommand) {
+
+        if (!vehicleRepository.existsByRegistration(rentalCommand.getVehicleRegistration()))
+            throw new IllegalArgumentException("Vehicle does not exist!");
+
+        RentalStatus status = getCurrentRentalStatus(rentalCommand.getVehicleRegistration());
+
+        switch (status) {
+            case OUT, PENDING -> throw new RentalException("Vehicle is already booked!");
+            case RETURNED_DAMAGED -> throw new RentalException("Vehicle is damaged, and cannot be rented!");
+        }
+
+        Rental rental = createRentalFrom(rentalCommand);
+
+        rentalRepository.save(rental);
+    }
+
+    public void returnVehicle(ReturnVehicleCommand returnVehicleCommand) {
+        if (!vehicleRepository.existsByRegistration(returnVehicleCommand.getVehicleRegistration()))
+            throw new IllegalArgumentException("Vehicle does not exist!");
+
+        Rental rental = rentalRepository.findRentedVehicleForCustomer(
+                returnVehicleCommand.getCustomerId(),
+                returnVehicleCommand.getVehicleRegistration(),
+                RentalStatus.OUT
+        ).orElseThrow(() -> new RentalException("That customer is not currently renting that vehicle!"));
+
+
+        if(returnVehicleCommand.isVehicleDamaged()) {
+            rental.setStatus(RentalStatus.RETURNED_DAMAGED);
+        } else {
+            rental.setStatus(RentalStatus.RETURNED_OK);
+        }
+
+        rentalRepository.save(rental);
+    }
+
+
+    private Rental createRentalFrom(RentalCommand rentalCommand) {
+        Rental rental = new Rental();
+
+        Customer customer = customerRepository.getById(rentalCommand.getCustomerId());
+        rental.setCustomer(customer);
+
+        Vehicle vehicle = vehicleRepository.findByRegistration(rentalCommand.getVehicleRegistration());
+        rental.setVehicle(vehicle);
+
+        rental.setStartDate(rentalCommand.getStartRentDate());
+
+        boolean rentalHasStarted = rentalCommand.getStartRentDate().isBefore(LocalDateTime.now());
+
+        if (rentalHasStarted) {
+            rental.setStatus(RentalStatus.OUT);
+        } else {
+            rental.setStatus(RentalStatus.PENDING);
+        }
+
+        return rental;
+    }
+
+
+    private RentalStatus getCurrentRentalStatus(String vehicleRegistration) {
+        Optional<Rental> mostRecentRental = rentalRepository.findMostRecentRentalByRegistration(vehicleRegistration);
+
+        //If this car has never been rented before, we should default it to RETURNED_OK
+        if (mostRecentRental.isEmpty())
+            return RentalStatus.RETURNED_OK;
+
+        return mostRecentRental.get().getStatus();
+    }
+
+
+}

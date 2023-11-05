@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2" author="imranbepari">
+        <insert tableName="customers">
+            <column name="id" value="1"/>
+            <column name="first_name" value="Bill"/>
+            <column name="last_name" value="Gates"/>
+            <column name="birth_date" valueDate="1955-10-28"/>
+            <column name="driver_license_number" value="ASDA1123"/>
+        </insert>
+        <insert tableName="customers">
+            <column name="id" value="2"/>
+            <column name="first_name" value="Tatsuya"/>
+            <column name="last_name" value="Kitani"/>
+            <column name="birth_date" valueDate="1996-02-28"/>
+            <column name="driver_license_number" value="ZZZZ4564"/>
+        </insert>
+        <insert tableName="customers">
+            <column name="id" value="3"/>
+            <column name="first_name" value="Shigeo"/>
+            <column name="last_name" value="Kageyama"/>
+            <column name="birth_date" valueDate="2003-05-12"/>
+            <column name="driver_license_number" value="HHHH9999"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="4"/>
+            <column name="first_name" value="Sakura"/>
+            <column name="last_name" value="Haruno"/>
+            <column name="birth_date" valueDate="1999-03-28"/>
+            <column name="driver_license_number" value="456EFGH"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="5"/>
+            <column name="first_name" value="Naruto"/>
+            <column name="last_name" value="Uzumaki"/>
+            <column name="birth_date" valueDate="2002-10-10"/>
+            <column name="driver_license_number" value="IJKL5678"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="6"/>
+            <column name="first_name" value="Asuna"/>
+            <column name="last_name" value="Yuuki"/>
+            <column name="birth_date" valueDate="2001-09-30"/>
+            <column name="driver_license_number" value="890MNO9"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="7"/>
+            <column name="first_name" value="Ichigo"/>
+            <column name="last_name" value="Kurosaki"/>
+            <column name="birth_date" valueDate="1995-07-15"/>
+            <column name="driver_license_number" value="55555555"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="8"/>
+            <column name="first_name" value="Mikasa"/>
+            <column name="last_name" value="Ackerman"/>
+            <column name="birth_date" valueDate="1994-02-10"/>
+            <column name="driver_license_number" value="98765432"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="9"/>
+            <column name="first_name" value="Eren"/>
+            <column name="last_name" value="Yeager"/>
+            <column name="birth_date" valueDate="1995-03-30"/>
+            <column name="driver_license_number" value="111AAA11"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="10"/>
+            <column name="first_name" value="Erza"/>
+            <column name="last_name" value="Scarlet"/>
+            <column name="birth_date" valueDate="1990-07-11"/>
+            <column name="driver_license_number" value="BB222BBB"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="id" value="11"/>
+            <column name="first_name" value="Kisuke"/>
+            <column name="last_name" value="Urahara"/>
+            <column name="birth_date" valueDate="1991-07-11"/>
+            <column name="driver_license_number" value="BC222BBB"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

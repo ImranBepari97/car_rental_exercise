@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="4" author="imranbepari">
+        <insert tableName="rentals">
+            <column name="vehicle_id" value="1"/>
+            <column name="customer_id" value="1"/>
+            <column name="start_date_time" valueDate="2023-08-20T07:30:00"/>
+            <column name="return_date_time"/>
+            <column name="status" value="1"/>
+        </insert>
+        <insert tableName="rentals">
+            <column name="vehicle_id" value="2"/>
+            <column name="customer_id" value="2"/>
+            <column name="start_date_time" valueDate="2023-09-27T15:30:00"/>
+            <column name="return_date_time" valueDate="2023-09-29T16:30:00"/>
+            <column name="status" value="2"/>
+        </insert>
+        <insert tableName="rentals">
+            <column name="vehicle_id" value="3"/>
+            <column name="customer_id" value="3"/>
+            <column name="start_date_time" valueDate="2023-09-17T12:15:00"/>
+            <column name="return_date_time"/>
+            <column name="status" value="1"/>
+        </insert>
+        <insert tableName="rentals">
+            <column name="vehicle_id" value="4"/>
+            <column name="customer_id" value="4"/>
+            <column name="start_date_time" valueDate="2023-09-23T11:45:00"/>
+            <column name="return_date_time" valueDate="2023-09-25T18:00:00"/>
+            <column name="status" value="3"/>
+        </insert>
+        <insert tableName="rentals">
+            <column name="vehicle_id" value="5"/>
+            <column name="customer_id" value="5"/>
+            <column name="start_date_time" valueDate="2023-09-14T10:00:00"/>
+            <column name="return_date_time" valueDate="2023-09-17T11:00:00"/>
+            <column name="status" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
