@@ -5,6 +5,8 @@ import com.accelex.sample.exercise.commands.VehicleCommand;
 import com.accelex.sample.exercise.model.Vehicle;
 import com.accelex.sample.exercise.repositories.VehicleRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.VEHICLE_ALREADY_EXISTS_ERROR;
@@ -12,6 +14,8 @@ import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.VEHICL
 @Service
 @AllArgsConstructor
 public class VehicleCommandHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VehicleCommandHandler.class);
 
     private final VehicleRepository vehicleRepository;
 
@@ -34,6 +38,7 @@ public class VehicleCommandHandler {
 
         Vehicle vehicle = createVehicleFrom(vehicleCommand);
 
-        vehicleRepository.save(vehicle);
+        Vehicle newVehicle = vehicleRepository.save(vehicle);
+
     }
 }

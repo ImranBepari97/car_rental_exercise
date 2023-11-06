@@ -12,6 +12,8 @@ import com.accelex.sample.exercise.repositories.RentalRepository;
 import com.accelex.sample.exercise.repositories.VehicleRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import static com.accelex.sample.exercise.utils.ExceptionMessageConstants.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class RentalCommandHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RentalCommandHandler.class);
 
     @Autowired
     private RentalRepository rentalRepository;
@@ -46,7 +50,9 @@ public class RentalCommandHandler {
 
         Rental rental = createRentalFrom(rentalCommand);
 
-        rentalRepository.save(rental);
+        Rental newRental = rentalRepository.save(rental);
+        LOGGER.debug("Created new rental with ID: {}, customer ID: {}, vehicle ID: {}",
+                newRental.getId(), newRental.getCustomer().getId(), newRental.getVehicle().getId());
     }
 
     public void returnVehicle(ReturnVehicleCommand returnVehicleCommand) {
@@ -66,7 +72,9 @@ public class RentalCommandHandler {
             rental.setStatus(RentalStatus.RETURNED_OK);
         }
 
-        rentalRepository.save(rental);
+        Rental returnedRental = rentalRepository.save(rental);
+        LOGGER.debug("Returned rental with ID: {}, customer ID: {}, vehicle ID: {}",
+                returnedRental.getId(), returnedRental.getCustomer().getId(), returnedRental.getVehicle().getId());
     }
 
 

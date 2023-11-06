@@ -4,6 +4,8 @@ import com.accelex.sample.exercise.commands.CustomerCommand;
 import com.accelex.sample.exercise.model.Customer;
 import com.accelex.sample.exercise.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class CustomerCommandHandler {
 
     @Autowired
     private final CustomerRepository customerRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerCommandHandler.class);
 
     public static Customer createCustomerFrom(CustomerCommand customerCommand) {
         Customer customer = new Customer();
@@ -33,6 +36,8 @@ public class CustomerCommandHandler {
 
         Customer customer = createCustomerFrom(customerCommand);
 
-        customerRepository.save(customer);
+        Customer newCustomer = customerRepository.save(customer);
+        LOGGER.debug("Created new customer with ID: {}, name: {} {}",
+                newCustomer.getId(), newCustomer.getFirstName(), newCustomer.getLastName());
     }
 }
