@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class BaseIntegrationTest {
     protected final RestTemplate restTemplate = new RestTemplate();
     protected final ObjectMapper objectMapper;
+    private final HttpHeaders headers = new HttpHeaders();
     @LocalServerPort
     private int port;
-    private final HttpHeaders headers = new HttpHeaders();
 
     public BaseIntegrationTest() {
         this.objectMapper = new ObjectMapper();
